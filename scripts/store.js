@@ -16,6 +16,14 @@ const store = {
             url: 'http://www.title2.com',
             description: 'dolorum tempore deserunt',
             expanded: false
+        },
+        {
+            id: '5rwe',
+            title: 'Title 3',
+            rating: 2,
+            url: 'http://www.title3.com',
+            description: 'possum',
+            expanded: false
         }
     ],
     adding: false,
@@ -46,4 +54,8 @@ const store3 = {
     adding: true,
     error: null,
     filter: 0
+};
+
+export default {
+    store
 };
