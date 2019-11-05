@@ -57,5 +57,6 @@ const store3 = {
 };
 
 export default {
-    store
+    store,
+    store2
 };

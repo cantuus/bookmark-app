@@ -1,3 +1,3 @@
-.star-container, .item-container {
+.star-container, .item-container, .edit-button {
     display: flex;
 }
