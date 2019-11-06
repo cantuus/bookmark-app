@@ -1,9 +1,15 @@
-
+import arrayItem from './store.js';
+import init from './initpg.js';
 
 const displayAddBookmark = function (pageHtml) {
     let addBookMarkpgHtml = `<form class="bookmark-form">
-        <label for="name">Add New Bookmark:</label>
+        <div><label for="name">Add New Bookmark:</label>
         <input type="url" id="input-bookmark" name="input-bookmark" size="22">
+        </div>
+        <div>
+        <label for="name">Title:</label>
+        <input type="text" id="input-bookmark-title" name="input-bookmark-title" size="22">
+        </div>
         <div class="edit-container-header">
             <div class="star-container">
             <div class="rating">
@@ -16,13 +22,15 @@ const displayAddBookmark = function (pageHtml) {
             </div>
         </div>
         <div class="edit-container">
-            <textarea rows="9" cols="60" placeholder="Add a description..."></textarea>
+            <textarea type="text" rows="9" cols="60" placeholder="Add a description..."></textarea>
             <div class="edit-button-container">
                 <button class="create-button">Create</button>
-                <button class="cancel-button">Cancel</button>
+                <button type="button" class="cancel-button">Cancel</button>
             </div>
         </div>
     </form>`;
+
+    attachCancelButtonClick();
 
     pageHtml = addBookMarkpgHtml;
     return pageHtml;
@@ -42,10 +50,16 @@ const createBookmark = function () {
 
 const attachCancelButtonClick = function () {
     $(document).ready(function () {
-        $('.cancel-button').click(main.render());
+        $('.cancel-button').click(function () {
+            let arrayItems = arrayItem.store.bookmarks;
+            arrayItems.forEach(function (item) {
+                item.expanded = false;
+            })
+            console.log('Cancel button clicked!')
+            init.render();
+        })
     })
 }
-
 export default {
     attachCancelButtonClick,
     attachCreateButtonClick,

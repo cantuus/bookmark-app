@@ -26,6 +26,11 @@ const attachFilterBookmarks = function () {
     $(document).ready(function () {
         $('#filter-rating').change(function (event) {
             event.preventDefault;
+            let arrayItems = arrayItem.store.bookmarks;
+            arrayItems.forEach(function (item) {
+                item.expanded = false;
+            })
+            console.log('filter button clicked!');
             init.render(false, true);
         })
     })

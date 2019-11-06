@@ -30,6 +30,11 @@
     justify-content: center;
     margin-top: 10px
   }
+/* 
+.main-container {
+  display: flex;
+  justify-content: center;
+} */
 
 .item-container {
     border: black solid 2px;
@@ -73,4 +78,3 @@
 .star-container {
     padding-top: 9px;
 }
-
