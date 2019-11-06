@@ -1,26 +1,37 @@
 import arrayItem from './store.js';
 
 //step 1
-const render = function (newButtonClicked) {
-    let arrayItems = arrayItem.store.bookmarks;
-    let buttonOptions = displayOptions();
-    let pageHtml = '' + buttonOptions;
 
-    arrayItems.forEach(function (arrayItem) {
-        if (arrayItem.expanded === true) {
-            pageHtml = displayExpandedHtml(arrayItem, pageHtml);
-        }
-        else if (arrayItem.expanded === false) {
-            pageHtml = displayUnExpandedHtml(arrayItem, pageHtml);
-        }
-    });
+const render = function (newButtonClicked, selectOptionClicked) {
+    let arrayItems = arrayItem.store.bookmarks;
+    let pageHtml = '';
 
     if (newButtonClicked === true) {
         pageHtml = displayAddBookmark(pageHtml);
+    } else {
+        let buttonOptions = displayOptions();
+        pageHtml = '' + buttonOptions;
+    
+        if(selectOptionClicked === true){
+            arrayItems = filterBookmarks();
+        }
+    
+        arrayItems.forEach(function (arrayItem) {
+            if (arrayItem.expanded === true) {
+                pageHtml = displayExpandedHtml(arrayItem, pageHtml);
+            }
+            else if (arrayItem.expanded === false) {
+                pageHtml = displayUnExpandedHtml(arrayItem, pageHtml);
+            }
+        });
     }
 
     // render everything
     $('.main-container').html(pageHtml);
+
+    if (!newButtonClicked) {
+        attachFilterBookmarks();
+    }
 }
 
 const displayOptions = function () {
@@ -39,8 +50,7 @@ const displayOptions = function () {
 
 const displayExpandedHtml = function (arrayItem, pageHtml) {
     let expandedHtml =
-        `
-                <div class="item-container">
+        `<div class="item-container">
                     <li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li>
                     <button class="delete-bookmark"><i class="far fa-trash-alt"></i></button>
                     <a href='${arrayItem.url}'><button class="visit-site-bookmark">Visit Site</button></a>
@@ -146,6 +156,25 @@ const getItem = function (id) {
     });
     return foundItem;
 }
+
+const attachFilterBookmarks = function () {
+    $(document).ready(function () {
+        $('#filter-rating').change(function (event) {
+            event.preventDefault;
+            render(false, true);
+        })
+    })
+}
+
+const filterBookmarks = function () {
+    let selectedVal = $('#filter-rating').find(':selected').val();
+    let numVal = Number(selectedVal);
+    console.log(numVal);
+    let arrayItems = arrayItem.store.bookmarks;
+    let matchedItems = arrayItems.filter(function (bookmark) { return bookmark.rating === numVal });
+    return matchedItems;
+}
+
 
 const bindEventListeners = function () {
     attachNewButtonClick();
