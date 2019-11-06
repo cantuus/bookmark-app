@@ -49,12 +49,12 @@ const displayOptions = function () {
 }
 
 const displayUnExpandedHtml = function (arrayItem, pageHtml) {
-    let titleHtml = `<div class='item-container'><li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li>`
+    let titleHtml = `<div class='item-container' id="init-item-container"><li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li>`
     let starContainerStart = `<div class="star-container">`;
     let starsHtml = '';
     let rating = arrayItem.rating;
     for (let i = 0; i < rating; i++) {
-        let starHtml = `<div class='display-star'><i class="far fa-star"></i></div>`
+        let starHtml = `<div class='display-star'><i class="fas fa-star"></i></div>`
         starsHtml = starsHtml + starHtml;
     }
     let starContainerEnd = `</div></div>`;

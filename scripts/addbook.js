@@ -14,7 +14,6 @@ const displayAddBookmark = function (pageHtml) {
                     <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
             </div>
             </div>
-            <button class="edit-button" type="button"><i class="far fa-edit"></i></button>
         </div>
         <div class="edit-container">
             <textarea rows="9" cols="60" placeholder="Add a description..."></textarea>
@@ -33,7 +32,7 @@ const displayAddBookmark = function (pageHtml) {
     //$('.bookmark-container').hide();
 }
 
-const attachCreateButtonClick = function (){
+const attachCreateButtonClick = function () {
 
 }
 

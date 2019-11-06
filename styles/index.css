@@ -1,3 +1,76 @@
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    width: 85%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  body header {
+    padding: -1rem;
+    text-align: center;
+  }
+
+  .header-title {
+      display: flex;
+      justify-content: space-evenly;
+  }
+
+  .button-options {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+.bookmark-list-item, .item-container, .edit-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px
+  }
+
+.item-container {
+    border: black solid 2px;
+    border-collapse: separate;
+    margin-left: 50px;
+    border-radius: 6px;
+}
+
+#init-item-container {
+    padding: 20px;
+}
+
+.delete-bookmark {
+    width: 30px;
+    height: 23px;
+    -webkit-text-stroke-width: thin;
+}
+
+.visit-site-bookmark {
+    margin-top: 1rem;
+}
+
+#expanded {
+    display:flex;
+    flex-direction: column;
+}
+
+#title-delete-button {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: black solid 2px;
+    padding: 10px;
+}
+
 .star-container, .item-container, .edit-button {
     display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
 }
+
+.star-container {
+    padding-top: 9px;
+}
+
