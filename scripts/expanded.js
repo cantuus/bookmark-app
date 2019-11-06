@@ -1,9 +1,11 @@
-import listeners from './eventlistener.js'
+import listeners from './eventlistener.js';
+import arrayItem from './store.js';
+import init from './initpg.js';
 
 const displayExpandedHtml = function (arrayItem, pageHtml) {
     let expandedHtml =
         `<div class="item-container" id="expanded">
-                    <div id="title-delete-button" data-item-id='${arrayItem.id}><li class='bookmark-list-item'>${arrayItem.title}</li>
+                    <div id="title-delete-button" data-item-id='${arrayItem.id}'><li class='bookmark-list-item'>${arrayItem.title}</li>
                     <button class="delete-bookmark"><i class="far fa-trash-alt"></i></button></div>
                     <div><a href='${arrayItem.url}'><button class="visit-site-bookmark">Visit Site</button></a></div>
                     <p>${arrayItem.description}
@@ -11,7 +13,7 @@ const displayExpandedHtml = function (arrayItem, pageHtml) {
                 </div>`;
 
     attachDeleteButton();
-        
+
     pageHtml = pageHtml + expandedHtml;
     return pageHtml;
 }
@@ -19,11 +21,14 @@ const displayExpandedHtml = function (arrayItem, pageHtml) {
 const attachDeleteButton = function () {
     $(document).ready(function () {
         $('.item-container').on('click', '#title-delete-button', function (event) {
-            const id = listeners.getItemIdFromElement(event.currentTarget);
-            let foundItem = listeners.getItem(id);
-            console.log(foundItem);
+            const id = listeners.getItemIdFromDeleteElement(event.currentTarget);
+            let newStore = arrayItem.store.bookmarks.filter(function (item) {
+                return item.id !== id;
+            })
+    
+            arrayItem.store.bookmarks = newStore
             $(this).parent().remove();
-            console.log('delete-button is clicked');
+            init.render();
         });
     });
 }

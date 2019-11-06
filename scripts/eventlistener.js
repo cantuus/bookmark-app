@@ -42,6 +42,12 @@ const getItemIdFromElement = function (item) {
         .data('item-id');
 };
 
+const getItemIdFromDeleteElement = function (item) {
+    return $(item)
+        .closest('#title-delete-button')
+        .data('item-id');
+}
+
 //retrieving the object with the matching id obtained from the click event from the store
 const getItem = function (id) {
     let foundItem = arrayItem.store.bookmarks.find(function (item) {
@@ -55,5 +61,6 @@ export default {
     attachFilterBookmarks,
     attachNewButtonClick,
     getItem,
-    getItemIdFromElement
+    getItemIdFromElement,
+    getItemIdFromDeleteElement
 }
