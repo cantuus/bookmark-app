@@ -11,11 +11,11 @@ const render = function (newButtonClicked, selectOptionClicked) {
     } else {
         let buttonOptions = displayOptions();
         pageHtml = '' + buttonOptions;
-    
-        if(selectOptionClicked === true){
+
+        if (selectOptionClicked === true) {
             arrayItems = filterBookmarks();
         }
-    
+
         arrayItems.forEach(function (arrayItem) {
             if (arrayItem.expanded === true) {
                 pageHtml = displayExpandedHtml(arrayItem, pageHtml);
@@ -130,18 +130,14 @@ const attachBookMarkSelectionClick = function () {
     $(document).ready(function () {
         $('.main-container').on('click', '.bookmark-list-item', event => {
             event.preventDefault();
-            updateExpandedValue(event);
+            const id = getItemIdFromElement(event.currentTarget);
+            let foundItem = getItem(id);
+            foundItem.expanded = !foundItem.expanded;
+            render(false);
         })
     })
 }
 
-// updates the expanded value of the store that toggles
-const updateExpandedValue = function (event) {
-    const id = getItemIdFromElement(event.currentTarget);
-    let foundItem = getItem(id);
-    foundItem.expanded = !foundItem.expanded;
-    render(false);
-}
 
 const getItemIdFromElement = function (item) {
     return $(item)
