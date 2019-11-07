@@ -50,15 +50,18 @@ const attachCreateButtonClick = function () {
             let titleInput = $('#input-bookmark-title').val();
             let textInput = $('#input-bookmark-text').val();
             let newId = makeid(4);
+            let newRating = $("input[name='rating']:checked").val();
+            let numRating = Number(newRating);
             
             console.log(urlInput);
             console.log(titleInput);
             console.log(textInput);
 
-            let newItem = createItem(urlInput, titleInput, textInput, newId);
+            let newItem = createItem(urlInput, titleInput, textInput, newId, numRating);
             console.log(newItem);
 
             arrayItem.store.bookmarks.push(newItem);
+            console.log(arrayItem.store.bookmarks);
 
             init.render();
         });
@@ -66,12 +69,12 @@ const attachCreateButtonClick = function () {
 }
 
 
-const createItem = function (urlInput, titleInput, textInput, newId) {
+const createItem = function (urlInput, titleInput, textInput, newId, numRating) {
     let newItem = {}
 
     newItem.id = newId;
     newItem.title = titleInput;
-    newItem.rating = 1;
+    newItem.rating = numRating;
     newItem.url = urlInput;
     newItem.description = textInput;
     newItem.expanded = false;
