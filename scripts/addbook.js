@@ -36,9 +36,6 @@ const displayAddBookmark = function (pageHtml) {
     pageHtml = addBookMarkpgHtml;
     return pageHtml;
 
-    //$('.main-container').html(addBookMarkpgHtml);
-    //addbooktools.attachCancelButtonClick();
-    //$('.bookmark-container').hide();
 }
 
 const attachCreateButtonClick = function () {
@@ -91,10 +88,6 @@ function makeid(l) {
     return text;
 }
 
-// const createBookmark = function () {
-//     console.log('create button is clicked')
-
-// }
 
 const attachCancelButtonClick = function () {
     $(document).ready(function () {
