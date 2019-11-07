@@ -1,14 +1,15 @@
 import arrayItem from './store.js';
 import init from './initpg.js';
+import api from './api.js';
 
 const displayAddBookmark = function (pageHtml) {
     let addBookMarkpgHtml = `<form class="bookmark-form">
         <div><label for="name">Add New Bookmark:</label>
-        <input type="url" id="input-bookmark" name="input-bookmark" size="22">
+        <input type="url" id="input-bookmark" name="input-bookmark" size="22" required>
         </div>
         <div>
         <label for="name">Title:</label>
-        <input type="text" id="input-bookmark-title" name="input-bookmark-title" size="22">
+        <input type="text" id="input-bookmark-title" name="input-bookmark-title" size="22" required>
         </div>
         <div class="edit-container-header">
             <div class="star-container">
@@ -32,7 +33,7 @@ const displayAddBookmark = function (pageHtml) {
 
     attachCreateButtonClick();
     attachCancelButtonClick();
-
+    
     pageHtml = addBookMarkpgHtml;
     return pageHtml;
 
@@ -46,47 +47,38 @@ const attachCreateButtonClick = function () {
             let urlInput = $('#input-bookmark').val();
             let titleInput = $('#input-bookmark-title').val();
             let textInput = $('#input-bookmark-text').val();
-            let newId = makeid(4);
             let newRating = $("input[name='rating']:checked").val();
             let numRating = Number(newRating);
-            
+
             console.log(urlInput);
             console.log(titleInput);
             console.log(textInput);
 
-            let newItem = createItem(urlInput, titleInput, textInput, newId, numRating);
+            let newItem = createItem(urlInput, titleInput, textInput, numRating);
             console.log(newItem);
 
-            arrayItem.store.bookmarks.push(newItem);
-            console.log(arrayItem.store.bookmarks);
-
-            init.render();
+            api.createBookmark(newItem).then(function (response) {
+                arrayItem.store.bookmarks.push(response);
+                console.log(arrayItem.store.bookmarks);
+                init.render();
+            })
         });
     })
 }
 
 
-const createItem = function (urlInput, titleInput, textInput, newId, numRating) {
+const createItem = function (urlInput, titleInput, textInput, numRating) {
     let newItem = {}
 
-    newItem.id = newId;
     newItem.title = titleInput;
     newItem.rating = numRating;
     newItem.url = urlInput;
-    newItem.description = textInput;
+    newItem.desc = textInput;
     newItem.expanded = false;
 
     return newItem;
 }
 
-function makeid(l) {
-    var text = "";
-    var char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < l; i++) {
-        text += char_list.charAt(Math.floor(Math.random() * char_list.length));
-    }
-    return text;
-}
 
 
 const attachCancelButtonClick = function () {

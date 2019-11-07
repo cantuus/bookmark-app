@@ -8,7 +8,7 @@ const displayExpandedHtml = function (arrayItem, pageHtml) {
                     <div id="title-delete-button" data-item-id='${arrayItem.id}'><li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li>
                     <button class="delete-bookmark"><i class="far fa-trash-alt"></i></button></div>
                     <div><a href='${arrayItem.url}'><button class="visit-site-bookmark">Visit Site</button></a></div>
-                    <p>${arrayItem.description}
+                    <p>${arrayItem.desc}
                     </p>
                 </div>`;
 
