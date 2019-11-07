@@ -1,6 +1,7 @@
 import listeners from './eventlistener.js';
 import arrayItem from './store.js';
 import init from './initpg.js';
+import api from './api.js';
 
 const displayExpandedHtml = function (arrayItem, pageHtml) {
     let expandedHtml =
@@ -25,15 +26,15 @@ const attachDeleteButton = function () {
             let newStore = arrayItem.store.bookmarks.filter(function (item) {
                 return item.id !== id;
             })
+
+            api.deleteItem(id).then(function () {
+                arrayItem.store.bookmarks = newStore;
+                init.render();
+            })
     
-            arrayItem.store.bookmarks = newStore
-            $(this).parent().remove();
-            init.render();
         });
     });
 }
-
-
 
 export default {
     displayExpandedHtml,

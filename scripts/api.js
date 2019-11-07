@@ -1,3 +1,4 @@
+import arrayItem from './store.js';
 const baseUrl = 'https://thinkful-list-api.herokuapp.com/sophia-koeut'
 
 const getBookmarks = function () {
@@ -5,9 +6,12 @@ const getBookmarks = function () {
         .then(function (response) {
             return response.json()})
         .then(function (responseJson) {
-            let addExpandedArray = responseJson.map(bookmark => ({...bookmark, expanded: false}));
+            let addExpandedArray = responseJson.map(bookmark => ({...bookmark, expanded: false}))
             return addExpandedArray;
-        });
+        })
+        .catch(err => {
+            arrayItem.store.error = err.message;
+        })
 }
 
 const createBookmark = function (newItem) {
@@ -23,17 +27,28 @@ const createBookmark = function (newItem) {
         })
         .then(function (response){
             return response.json();
-        });
+        })
+        .catch(err => {
+            arrayItem.store.error = err.message;
+        })
 }
 
 
 
-const deleteItem = function (id, deletedItem) {
+const deleteItem = function (id) {
     const options = {
       method: 'DELETE',
-      headers: new Headers({'Content-Type': 'application/json'})
+      headers: new Headers({
+          'Content-Type': 'application/json'
+        })
     };
-    return apiFetch(BASE_URL+`/bookmarks/${id}`,options);
+    return fetch(`${baseUrl}/bookmarks/${id}`,options)
+    .then(function (response){
+        return response.json();
+    })
+    .catch(err => {
+        arrayItem.store.error = err.message;
+    })
   };
 
 

@@ -36,22 +36,24 @@ const render = function (newButtonClicked, selectOptionClicked) {
 
 const displayOptions = function () {
     let displayOptions = `<div class="button-options">
-            <button class="add-bookmark" type="button">+ New <i class="far fa-bookmark"></i></button>
+            <div><button class="add-bookmark" type="button">+ New <i class="far fa-bookmark"></i></button></div>
+            <div>
+            <label for="filter-rating">Minimum Filter:</label>
             <select name="filter-rating" id="filter-rating">
-                <option value="">Filter by Minimum Rating:</option>
                 <option value="5">5</option>
                 <option value="4">4 or higher</option>
                 <option value="3">3 or higher</option>
                 <option value="2">2 or higher</option>
                 <option value="1">1</option>
             </select>
+            </div>
         </div>`
 
     return displayOptions;
 }
 
 const displayUnExpandedHtml = function (arrayItem, pageHtml) {
-    let titleHtml = `<div class='item-container' id="init-item-container"><li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li>`
+    let titleHtml = `<div class='item-container'><ul><li class='bookmark-list-item' data-item-id='${arrayItem.id}'>${arrayItem.title}</li></ul>`
     let starContainerStart = `<div class="star-container">`;
     let starsHtml = '';
     let rating = arrayItem.rating;
