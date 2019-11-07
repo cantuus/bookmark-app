@@ -43,13 +43,10 @@
     border-radius: 6px;
 }
 
-#init-item-container {
-    padding: 20px;
-}
 
 .delete-bookmark {
-    width: 30px;
-    height: 23px;
+    width: 40px;
+    height: 40px;
     -webkit-text-stroke-width: thin;
 }
 
@@ -60,6 +57,7 @@
 #expanded {
     display:flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 #title-delete-button {
