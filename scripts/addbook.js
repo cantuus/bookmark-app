@@ -22,14 +22,15 @@ const displayAddBookmark = function (pageHtml) {
             </div>
         </div>
         <div class="edit-container">
-            <textarea type="text" rows="9" cols="60" placeholder="Add a description..."></textarea>
+            <textarea type="text" id="input-bookmark-text" rows="9" cols="60" placeholder="Add a description..."></textarea>
             <div class="edit-button-container">
-                <button class="create-button">Create</button>
+                <input type="submit" class="create-button"></input>
                 <button type="button" class="cancel-button">Cancel</button>
             </div>
         </div>
     </form>`;
 
+    attachCreateButtonClick();
     attachCancelButtonClick();
 
     pageHtml = addBookMarkpgHtml;
@@ -41,12 +42,56 @@ const displayAddBookmark = function (pageHtml) {
 }
 
 const attachCreateButtonClick = function () {
+    $(document).ready(function () {
+        $('.bookmark-form').submit(function (event) {
+            event.preventDefault();
+            console.log('create button worked');
+            let urlInput = $('#input-bookmark').val();
+            let titleInput = $('#input-bookmark-title').val();
+            let textInput = $('#input-bookmark-text').val();
+            let newId = makeid(4);
+            
+            console.log(urlInput);
+            console.log(titleInput);
+            console.log(textInput);
 
+            let newItem = createItem(urlInput, titleInput, textInput, newId);
+            console.log(newItem);
+
+            arrayItem.store.bookmarks.push(newItem);
+
+            init.render();
+        });
+    })
 }
 
-const createBookmark = function () {
 
+const createItem = function (urlInput, titleInput, textInput, newId) {
+    let newItem = {}
+
+    newItem.id = newId;
+    newItem.title = titleInput;
+    newItem.rating = 1;
+    newItem.url = urlInput;
+    newItem.description = textInput;
+    newItem.expanded = false;
+
+    return newItem;
 }
+
+function makeid(l) {
+    var text = "";
+    var char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < l; i++) {
+        text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+}
+
+// const createBookmark = function () {
+//     console.log('create button is clicked')
+
+// }
 
 const attachCancelButtonClick = function () {
     $(document).ready(function () {
@@ -63,7 +108,6 @@ const attachCancelButtonClick = function () {
 export default {
     attachCancelButtonClick,
     attachCreateButtonClick,
-    createBookmark,
     displayAddBookmark
 }
 
