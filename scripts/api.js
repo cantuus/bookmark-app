@@ -11,6 +11,7 @@ const getBookmarks = function () {
         })
         .catch(err => {
             arrayItem.store.error = err.message;
+            `<p>${err.message}</p>`
         })
 }
 
@@ -30,6 +31,7 @@ const createBookmark = function (newItem) {
         })
         .catch(err => {
             arrayItem.store.error = err.message;
+            `<p>${err.message}</p>`
         })
 }
 
@@ -48,6 +50,7 @@ const deleteItem = function (id) {
     })
     .catch(err => {
         arrayItem.store.error = err.message;
+        `<p>${err.message}</p>`
     })
   };
 
