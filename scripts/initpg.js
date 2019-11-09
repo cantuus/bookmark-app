@@ -40,11 +40,12 @@ const displayOptions = function () {
             <div>
             <label for="filter-rating">Minimum Filter:</label>
             <select name="filter-rating" id="filter-rating">
+                <option value"">---</option>
                 <option value="5">5</option>
                 <option value="4">4 or higher</option>
                 <option value="3">3 or higher</option>
                 <option value="2">2 or higher</option>
-                <option value="1">1</option>
+                <option value="1">1 or higher</option>
             </select>
             </div>
         </div>`
@@ -79,7 +80,7 @@ const filterBookmarks = function () {
     let numVal = Number(selectedVal);
     console.log(numVal);
     let arrayItems = arrayItem.store.bookmarks;
-    let matchedItems = arrayItems.filter(function (bookmark) { return bookmark.rating >= numVal });
+    let matchedItems = arrayItems.filter(function (bookmark) { return bookmark.rating >= numVal || bookmark.rating === numVal  });
     return matchedItems;
 }
 
