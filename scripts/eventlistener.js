@@ -30,8 +30,14 @@ const attachFilterBookmarks = function () {
             arrayItems.forEach(function (item) {
                 item.expanded = false;
             })
+            let selectedVal = $('#filter-rating').find(':selected').val();
+            if (selectedVal === '---') {
+                selectedVal = 0;
+            }
+            let numVal = Number(selectedVal);
+            arrayItem.store.filter = numVal;
             console.log('filter button clicked!');
-            init.render(false, true);
+            init.render(false);
         })
     })
 }

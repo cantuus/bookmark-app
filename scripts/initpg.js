@@ -3,19 +3,20 @@ import expanded from './expanded.js';
 import addbook from './addbook.js';
 import listeners from './eventlistener.js';
 
-const render = function (newButtonClicked, selectOptionClicked) {
+const render = function (newButtonClicked) {
     let arrayItems = arrayItem.store.bookmarks;
     let pageHtml = '';
 
     if (newButtonClicked === true) {
         pageHtml = addbook.displayAddBookmark(pageHtml);
-    } else {
-        let buttonOptions = displayOptions();
-        pageHtml = '' + buttonOptions;
-
-        if (selectOptionClicked === true) {
+    } 
+    else {
+        if (arrayItem.store.filter) {
             arrayItems = filterBookmarks();
         }
+
+        let buttonOptions = displayOptions();
+        pageHtml = '' + buttonOptions;
 
         arrayItems.forEach(function (arrayItem) {
             if (arrayItem.expanded === true) {
@@ -35,22 +36,38 @@ const render = function (newButtonClicked, selectOptionClicked) {
 }
 
 const displayOptions = function () {
-    let displayOptions = `<div class="button-options">
+    let selectedVal = arrayItem.store.filter;
+    let optionStart = `<div class="button-options">
             <div><button class="add-bookmark" type="button">+ New <i class="far fa-bookmark"></i></button></div>
             <div>
             <label for="filter-rating">Minimum Filter:</label>
             <select name="filter-rating" id="filter-rating">
-                <option value"">---</option>
-                <option value="5">5</option>
-                <option value="4">4 or higher</option>
-                <option value="3">3 or higher</option>
-                <option value="2">2 or higher</option>
-                <option value="1">1 or higher</option>
-            </select>
-            </div>
-        </div>`
+                <option value="">---</option>`;
 
-    return displayOptions;
+    let option5 = `<option value="5">5</option>`;
+    if (selectedVal === 5) {
+        option5 = `<option value="5" selected>5</option>`;
+    }
+    let option4 = `<option value="4">4 or higher</option>`;
+    if (selectedVal === 4) {
+        option4 = `<option value="4" selected>4 or higher</option>`;
+    }
+    let option3 = `<option value="3">3 or higher</option>`;
+    if (selectedVal === 3) {
+        option3 = `<option value="" selected>3 or higher</option>`;
+    }
+    let option2 = `<option value="2">2 or higher</option>`;
+    if (selectedVal === 2) {
+        option2 = `<option value="2" selected>2 or higher</option>`;
+    }
+    let option1 = `<option value="1">1 or higher</option>`;
+    if (selectedVal === 1) {
+        option1 = `<option value="1" selected>1 or higher</option>`;
+    }
+
+    const optionEnd = `</select></div></div>`;
+
+    return `${optionStart}${option5}${option4}${option3}${option2}${option1}${optionEnd}`;
 }
 
 const displayUnExpandedHtml = function (arrayItem, pageHtml) {
@@ -76,11 +93,8 @@ const displayUnExpandedHtml = function (arrayItem, pageHtml) {
 }
 
 const filterBookmarks = function () {
-    let selectedVal = $('#filter-rating').find(':selected').val();
-    let numVal = Number(selectedVal);
-    console.log(numVal);
     let arrayItems = arrayItem.store.bookmarks;
-    let matchedItems = arrayItems.filter(function (bookmark) { return bookmark.rating >= numVal || bookmark.rating === numVal  });
+    let matchedItems = arrayItems.filter(function (bookmark) { return bookmark.rating >= arrayItem.store.filter });
     return matchedItems;
 }
 
